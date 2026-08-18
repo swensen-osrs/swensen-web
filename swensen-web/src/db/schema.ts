@@ -1,4 +1,4 @@
-import { pgTable, serial, text, integer, varchar, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, integer, varchar, boolean, pgEnum } from "drizzle-orm/pg-core";
 
 export const enum_contentTypes = pgEnum("content_type", ["quest", "skill_level", "activity", "item"]);
 export const enum_requirementTypes = pgEnum("requirement_type", ["requirement", "recommendation", "optional"]);
@@ -22,4 +22,5 @@ export const requirements = pgTable("requirements", {
     requirementType: enum_requirementTypes("requirement_type").notNull(),
     requiredContentId: integer("required_content_id").notNull().references(() => content.id),
     description: text("description"),
+    partial: boolean("partial").notNull().default(false),
 });
